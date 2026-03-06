@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <!-- Левая страница книги -->
+  <path d="M116 136H256V376H136c-11 0-20-9-20-20V136z" fill="rgba(255,255,255,0.95)"/>
+  <!-- Правая страница -->
+  <path d="M276 136h120v220c0 11-9 20-20 20H276V136z" fill="rgba(255,255,255,0.9)"/>
+  <!-- Корешок -->
+  <rect x="252" y="136" width="32" height="240" fill="rgba(255,255,255,0.7)"/>
+  <!-- Буква A -->
+  <path d="M256 180L184 356h48l18-52h92l18 52h48L256 180zm22 104l26 72h-52l26-72z" fill="#4f46e5"/>
+</svg>
