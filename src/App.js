@@ -5,9 +5,11 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
+import Settings from "./components/Settings";
+import Statistics from "./components/Statistics";
 import Translation from "./components/Translation";
 import SavedWords from "./components/SavedWords";
-import Flashcards from "./components/Flashcards";
+import Memorization from "./components/Memorization";
 import EventBus from "./common/EventBus";
 import { Routes, Route, Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -37,6 +39,7 @@ const App = () => {
   };
 
   const isActive = (path) => location.pathname === path ? "nav-link active" : "nav-link";
+  const isMemorizationActive = location.pathname === "/memorization" || location.pathname.startsWith("/memorization/");
   const isHome = location.pathname === "/" || location.pathname === "/home";
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
@@ -67,8 +70,18 @@ const App = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/flashcards" className={isActive("/flashcards")}>
-                    Карточки
+                  <Link to="/memorization" className={isMemorizationActive ? "nav-link active" : "nav-link"}>
+                    Тренировка
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/statistics" className={isActive("/statistics")}>
+                    Статистика
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/settings" className={isActive("/settings")}>
+                    Настройки
                   </Link>
                 </li>
                 <li>
@@ -117,6 +130,12 @@ const App = () => {
         <div className="app-nav-drawer-inner">
           {currentUser ? (
             <>
+              <Link to="/statistics" className="app-nav-drawer-link" onClick={closeMobileMenu}>
+                Статистика
+              </Link>
+              <Link to="/settings" className="app-nav-drawer-link" onClick={closeMobileMenu}>
+                Настройки
+              </Link>
               <Link to="/profile" className="app-nav-drawer-link" onClick={closeMobileMenu}>
                 Профиль
               </Link>
@@ -144,9 +163,11 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/statistics" element={<Statistics />} />
           <Route path="/translation" element={<Translation />} />
           <Route path="/saved-words" element={<SavedWords />} />
-          <Route path="/flashcards" element={<Flashcards />} />
+          <Route path="/memorization/*" element={<Memorization />} />
         </Routes>
       </div>
 
@@ -157,8 +178,8 @@ const App = () => {
         <Link to="/translation" className={isActive("/translation")} onClick={closeMobileMenu}>
           Перевод
         </Link>
-        <Link to="/flashcards" className={isActive("/flashcards")} onClick={closeMobileMenu}>
-          Карточки
+        <Link to="/memorization" className={isMemorizationActive ? "active" : ""} onClick={closeMobileMenu}>
+          Тренировка
         </Link>
       </nav>
     </div>
