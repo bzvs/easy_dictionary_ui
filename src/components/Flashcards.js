@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import SavedWordsService from '../services/savedWords.service';
 
 const AUTO_NEXT_DELAY_MS = 1800;
@@ -6,6 +7,8 @@ const AUTO_NEXT_DELAY_MS = 1800;
 const FLIP_DURATION_MS = 500;
 
 const Flashcards = () => {
+  const location = useLocation();
+  const isUnderMemorization = location.pathname.startsWith('/memorization');
   const [words, setWords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -62,6 +65,11 @@ const Flashcards = () => {
     return (
       <section className="page-section">
         <div className="card-modern flashcards-container">
+          {isUnderMemorization && (
+            <Link to="/memorization" className="flashcards-back" aria-label="Назад к выбору режима">
+              ← Тренировка
+            </Link>
+          )}
           <h1 className="title-page">Карточки</h1>
           <p className="subtitle-page">Повторение слов с интервальным запоминанием.</p>
           <div className="alert-error mb-2">{error}</div>
@@ -77,11 +85,21 @@ const Flashcards = () => {
     return (
       <section className="page-section">
         <div className="card-modern flashcards-container">
+          {isUnderMemorization && (
+            <Link to="/memorization" className="flashcards-back" aria-label="Назад к выбору режима">
+              ← Тренировка
+            </Link>
+          )}
           <h1 className="title-page">Карточки</h1>
           <p className="subtitle-page">Повторение слов с интервальным запоминанием.</p>
           <p className="text-muted">
             Нет слов на сегодня. Добавьте слова в разделе «Мои слова» и отметьте их «На изучении» — они появятся здесь.
           </p>
+          {isUnderMemorization && (
+            <Link to="/memorization" className="btn-modern mt-2">
+              К тренировке
+            </Link>
+          )}
         </div>
       </section>
     );
@@ -91,11 +109,23 @@ const Flashcards = () => {
     return (
       <section className="page-section">
         <div className="card-modern flashcards-container flashcards-done">
+          {isUnderMemorization && (
+            <Link to="/memorization" className="flashcards-back" aria-label="Назад к выбору режима">
+              ← Тренировка
+            </Link>
+          )}
           <h1 className="title-page">Готово</h1>
           <p className="subtitle-page">Вы повторили все карточки на сегодня.</p>
-          <button type="button" className="btn-modern" onClick={() => { setIndex(0); load(); }}>
-            Загрузить снова
-          </button>
+          <div className="flashcards-done-actions">
+            <button type="button" className="btn-modern" onClick={() => { setIndex(0); load(); }}>
+              Загрузить снова
+            </button>
+            {isUnderMemorization && (
+              <Link to="/memorization" className="btn-modern btn-outline">
+                К тренировке
+              </Link>
+            )}
+          </div>
         </div>
       </section>
     );
@@ -104,6 +134,11 @@ const Flashcards = () => {
   return (
     <section className="page-section page-section-flashcards">
       <div className="card-modern flashcards-container">
+        {isUnderMemorization && (
+          <Link to="/memorization" className="flashcards-back" aria-label="Назад к выбору режима">
+            ← Тренировка
+          </Link>
+        )}
         <div className="flashcards-header">
           <h1 className="title-page">Карточки</h1>
           <p className="flashcards-progress">
